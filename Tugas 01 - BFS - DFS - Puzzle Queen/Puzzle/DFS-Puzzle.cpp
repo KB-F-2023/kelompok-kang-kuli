@@ -6,19 +6,33 @@ using namespace std;
 #define endl '\n'
 
 set <string> vis;
+int getPos(int idx, int dest);
+void dfs(string state, string goals);
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	string state = "120345678";
+	string goals ="123456780";
+	
+	dfs(state, goals);
+	return 0;
+}
 
 int getPos(int idx, int dest) {
 	int row = idx / 3;
 	int col = idx % 3;
 	
 	if(dest == 0)
-		return (col == 0 ? -1 : 3 * row + col - 1);	//Left
+		return (col == 0 ? -1 : 3 * row + col - 1);	//Kiri
 	else if(dest == 1)
-		return (col == 2 ? -1 : 3 * row + col + 1);	//Right
+		return (col == 2 ? -1 : 3 * row + col + 1);	//Kanan
 	else if(dest == 2)
-		return (row == 0 ? -1 : 3 * (row - 1) + col); //Top
+		return (row == 0 ? -1 : 3 * (row - 1) + col); //Atas
 	else
-		return (row == 2 ? -1 : 3 * (row + 1) + col); //Bottom
+		return (row == 2 ? -1 : 3 * (row + 1) + col); //Bawah
 }
 
 void dfs(string state, string goals) {
@@ -41,25 +55,24 @@ void dfs(string state, string goals) {
 			vis.insert(cur);
 		st.pop();
 		
-		if(cur == goals){
+		if(cur == goals) {
 			cout << step << endl;
 			return;
 		}
-		int kosong = -1;
+		int null = -1;
 		
-		for(int i = 0; i < 9; ++i){
+		for(int i = 0; i < 9; ++i) {
 			if(cur[i] == '0'){
-				kosong = i;
+				null = i;
 				break;
 			}
 		}
-		for(int i = 0; i < 4; ++i)
-		{
+		for(int i = 0; i < 4; ++i) {
 			string nextStr = cur;
-			int nextPos = getPos(kosong, i);
+			int nextPos = getPos(null, i);
 			
 			if(nextPos != -1){
-				swap(nextStr[kosong], nextStr[nextPos]);
+				swap(nextStr[null], nextStr[nextPos]);
 			}
 			if(!vis.count(nextStr))
 			{
@@ -70,14 +83,4 @@ void dfs(string state, string goals) {
 	}	
 }
 
-int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	
-	string state = "120345678";
-	string goals ="123456780";
-	
-	dfs(state, goals);
-	return 0;
-}
+
