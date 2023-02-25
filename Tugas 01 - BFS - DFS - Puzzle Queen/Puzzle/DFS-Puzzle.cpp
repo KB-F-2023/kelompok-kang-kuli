@@ -26,9 +26,9 @@ int getPos(int idx, int dest) {
 	int col = idx % 3;
 	
 	if(dest == 0)
-		return (col == 0 ? -1 : 3 * row + col - 1);	//Kiri
+		return (col == 0 ? -1 : 3 * row + col - 1); //Kiri
 	else if(dest == 1)
-		return (col == 2 ? -1 : 3 * row + col + 1);	//Kanan
+		return (col == 2 ? -1 : 3 * row + col + 1); //Kanan
 	else if(dest == 2)
 		return (row == 0 ? -1 : 3 * (row - 1) + col); //Atas
 	else
